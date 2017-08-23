@@ -1,5 +1,17 @@
 const startingId = 'N1152921521787521333';
-const folder = ' img[src="/businesspublisher/layouts/default/images/tree/folder.gif"]';
+const folder = 'img[src="/businesspublisher/layouts/default/images/tree/folder.gif"]';
+
+/**
+ * Checks has link or not
+ * @param {string} id
+ * @returns {Element}
+ */
+const isLink = (id) => document.querySelector(`#${id} a`);
+
+// Click if its possible, if not - find the next one
+const tryClick = (id) => {
+  isLink(id) ? getNext(id) : doClick(id);
+};
 
 // Wait for server response and html rendering
 const timeoutSetter = (id, delay = 60) => {
@@ -11,13 +23,10 @@ const timeoutSetter = (id, delay = 60) => {
 
 // Do click on image in element
 const doClick = (id) => {
-  document.querySelector('#' + id + folder).click();
+  document.querySelector(`#${id} folder`).click();
   console.log('click on', id);
   timeoutSetter(id, 100);
 };
-
-// Check has link or not
-const isLink = (id) => document.querySelector('#' + id + ' a');
 
 // Get the next one for the parent one
 const getNextForParent = (id) => {
@@ -40,11 +49,6 @@ const getNext = (id) => {
     let nextParent = getNextForParent(id);
     nextParent ? tryClick(nextParent.id) : console.log('%c finish!', 'color: #3bc43b');
   }
-};
-
-// Click if its possible, if not - find the next one
-const tryClick = (id) => {
-  isLink(id) ? getNext(id) : doClick(id);
 };
 
 tryClick(startingId);
