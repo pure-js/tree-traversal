@@ -17,9 +17,7 @@ const doClick = (id) => {
 };
 
 // Check has link or not
-const isLink = (id) => {
-  return document.querySelector('#' + id + ' a');
-};
+const isLink = (id) => document.querySelector('#' + id + ' a');
 
 // Get the next one for the parent one
 const getNextForParent = (id) => {
