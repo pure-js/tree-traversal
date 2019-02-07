@@ -23,7 +23,7 @@ const tryClick = (id) => {
  */
 const timeoutSetter = (id, delay = 60) => {
   setTimeout(function () {
-    let next = document.querySelector('#' + id + ' nobr');
+    const next = document.querySelector('#' + id + ' nobr');
     next ? tryClick(next.id) : timeoutSetter(id);
   }, delay);
 };
@@ -33,7 +33,7 @@ const timeoutSetter = (id, delay = 60) => {
  * @param {string} id
  */
 const doClick = (id) => {
-  document.querySelector(`#${id} folder`).click();
+  document.querySelector(`#${id} ${folder}`).click();
   console.log('click on', id);
   timeoutSetter(id, 100);
 };
@@ -44,10 +44,10 @@ const doClick = (id) => {
  * @returns {Element}
  */
 const getNextForParent = (id) => {
-  let current = document.getElementById(id);
+  const current = document.getElementById(id);
   if (current) {
-    let nextParent = current.parentElement.parentElement;
-    let nextParentSibling = nextParent.nextSibling;
+    const nextParent = current.parentElement.parentElement;
+    const nextParentSibling = nextParent.nextSibling;
     return nextParentSibling ? nextParentSibling : getNextForParent(nextParent.id);
   }
 };
@@ -58,15 +58,14 @@ const getNextForParent = (id) => {
  */
 const getNext = (id) => {
   // get the next one
-  let next = document.getElementById(id).nextSibling;
+  const next = document.getElementById(id).nextSibling;
   // if we have the next one - try to click, in other case - get next for parent and try to click
   if (next) {
     tryClick(next.id);
   } else {
-    let nextParent = getNextForParent(id);
+    const nextParent = getNextForParent(id);
     nextParent ? tryClick(nextParent.id) : console.log('%c finish!', 'color: #3bc43b');
   }
 };
 
 tryClick(startingId);
-// TODO: save as
